@@ -1,20 +1,124 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+  <ion-toolbar class="porsche-toolbar">
+    <div class="toolbar-inner">
+      <div class="toolbar-wordmark">PORSCHE</div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="porsche-content">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- ── LOADING ── -->
+  <div *ngIf="cargando" class="loading-screen">
+    <div class="loader-crest">
+      <div class="crest-ring"></div>
+      <div class="crest-inner">P</div>
+    </div>
+    <div class="loader-label">CARGANDO CATÁLOGO</div>
+    <div class="loader-dots">
+      <span></span><span></span><span></span>
+    </div>
   </div>
+
+  <!-- ── CATÁLOGO ── -->
+  <div *ngIf="!cargando" class="catalogo-wrapper">
+
+    <div class="catalogo-intro">
+      <p class="intro-hint">Toca cada tarjeta para ver la ficha técnica</p>
+    </div>
+
+    <div class="cards-grid">
+      <div
+        *ngFor="let carro of carros; let i = index"
+        class="flip-wrapper"
+        [class.is-flipped]="carro.flipped"
+        (click)="toggleFlip(carro)">
+
+        <div class="flip-inner">
+
+          <!-- ── FRENTE ── -->
+          <div class="flip-face flip-front">
+            <img
+              [src]="carro.imagen"
+              [alt]="carro.model"
+              class="face-img"
+              loading="lazy"
+              (error)="onImgError($event, carro.model)" />
+            <div class="front-gradient"></div>
+            <div class="front-index">{{ (i + 1).toString().padStart(2, '0') }}</div>
+            <div class="front-badge" [class.badge-ev]="carro.fuel_type === 'electricity'" [class.badge-hybrid]="carro.fuel_type === 'gas/electric'">
+              {{ getFuelLabel(carro.fuel_type) }}
+            </div>
+            <div class="front-info">
+              <p class="front-year">{{ carro.year }}</p>
+              <h2 class="front-model">{{ getNombreModelo(carro.model) }}</h2>
+              <p class="front-class">{{ carro.class | titlecase }}</p>
+              <div class="front-hint">
+                <ion-icon name="sync-outline"></ion-icon>
+                Ver ficha técnica
+              </div>
+            </div>
+            <div class="front-gold-line"></div>
+          </div>
+
+          <!-- ── REVERSO ── -->
+          <div class="flip-face flip-back">
+            <div class="back-header">
+              <div class="back-wordmark">PORSCHE</div>
+              <div class="back-model-name">{{ getNombreModelo(carro.model) }}</div>
+              <div class="back-year-badge">{{ carro.year }}</div>
+            </div>
+            <div class="back-gold-sep"></div>
+            <div class="back-specs">
+              <div class="spec-row">
+                <span class="spec-key">Categoría</span>
+                <span class="spec-val">{{ carro.class | titlecase }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Motor</span>
+                <span class="spec-val accent">{{ carro.displacement ? carro.displacement + ' L — ' + carro.cylinders + ' cil.' : 'Eléctrico' }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Transmisión</span>
+                <span class="spec-val">{{ getTransmision(carro.transmission) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Tracción</span>
+                <span class="spec-val">{{ getTraccion(carro.drive) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Combustible</span>
+                <span class="spec-val">{{ getFuelLabel(carro.fuel_type) }}</span>
+              </div>
+            </div>
+            <div class="back-gold-sep"></div>
+            <div class="back-consumo">
+              <div class="bc-item">
+                <span class="bc-val">{{ carro.city_mpg }}</span>
+                <span class="bc-unit">MPG</span>
+                <span class="bc-label">Ciudad</span>
+              </div>
+              <div class="bc-item bc-center">
+                <span class="bc-val accent">{{ carro.combination_mpg }}</span>
+                <span class="bc-unit">MPG</span>
+                <span class="bc-label">Combinado</span>
+              </div>
+              <div class="bc-item">
+                <span class="bc-val">{{ carro.highway_mpg }}</span>
+                <span class="bc-unit">MPG</span>
+                <span class="bc-label">Carretera</span>
+              </div>
+            </div>
+            <div class="back-footer">
+              <ion-icon name="sync-outline"></ion-icon>
+              Volver a la foto
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </ion-content>

@@ -6,4 +6,8 @@ const config: CapacitorConfig = {
   webDir: 'www'
 };
 
+server: {
+  allowNavigation: ['cdn.imagin.studio', 'placehold.co']
+}
+
 export default config;

@@ -1,27 +1,547 @@
-#container {
-  text-align: center;
+// ─────────────────────────────────────────────
+//  TOKENS — Paleta de lujo automotriz
+// ─────────────────────────────────────────────
+$negro-fondo:   #07070a;
+$negro-card:    #0e0e12;
+$negro-back:    #11111a;
+$grafito:       #1c1c26;
+$grafito2:      #2a2a38;
+$gris-linea:    #323245;
+$gris-texto:    #7a7a9a;
+$blanco:        #f0efeb;
+$blanco-suave:  #c8c8d8;
+$dorado:        #c8a96e;
+$dorado-claro:  #e8c98e;
+$dorado-opaco:  rgba(200,169,110,0.15);
+$rojo:          #c0001a;
+$verde-ev:      #00b86e;
 
+// ─────────────────────────────────────────────
+//  RESET BASE
+// ─────────────────────────────────────────────
+ion-content.porsche-content {
+  --background: #{$negro-fondo};
+  --color: #{$blanco};
+}
+
+// ─────────────────────────────────────────────
+//  TOOLBAR
+// ─────────────────────────────────────────────
+.porsche-toolbar {
+  --background: #{$negro-fondo};
+  --border-color: #{$gris-linea};
+  --min-height: 64px;
+  padding: 0 20px;
+
+  .toolbar-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .toolbar-wordmark {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 5px;
+    color: $blanco;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    line-height: 1;
+  }
+
+  .toolbar-rule {
+    width: 1px;
+    height: 20px;
+    background: $dorado;
+    opacity: 0.6;
+  }
+
+  .toolbar-sub {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: $dorado;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .toolbar-count {
+    font-size: 11px;
+    color: $gris-texto;
+    letter-spacing: 1px;
+  }
+}
+
+// ─────────────────────────────────────────────
+//  LOADING
+// ─────────────────────────────────────────────
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
+  gap: 20px;
+
+  .loader-crest {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .crest-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid $dorado;
+      opacity: 0.5;
+      animation: spinRing 2.4s linear infinite;
+    }
+
+    .crest-inner {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0;
+      color: $dorado;
+      font-family: 'Georgia', serif;
+      font-style: italic;
+    }
+  }
+
+  .loader-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: $gris-texto;
+    text-transform: uppercase;
+  }
+
+  .loader-dots {
+    display: flex;
+    gap: 6px;
+
+    span {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: $dorado;
+      opacity: 0.3;
+      animation: dotPulse 1.2s ease-in-out infinite;
+
+      &:nth-child(2) { animation-delay: 0.2s; }
+      &:nth-child(3) { animation-delay: 0.4s; }
+    }
+  }
+}
+
+@keyframes spinRing {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+
+// ─────────────────────────────────────────────
+//  CATÁLOGO WRAPPER
+// ─────────────────────────────────────────────
+.catalogo-wrapper {
+  padding: 0 0 48px;
+}
+
+.catalogo-intro {
+  padding: 28px 22px 20px;
+
+  // removed
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: $dorado;
+    text-transform: uppercase;
+    margin: 0 0 6px;
+    font-weight: 600;
+  }
+
+  .intro-title {
+    font-size: 26px;
+    font-weight: 900;
+    color: $blanco;
+    margin: 0 0 8px;
+    line-height: 1.15;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 0.5px;
+
+    em {
+      font-style: italic;
+      color: $dorado;
+      font-weight: 300;
+    }
+  }
+
+  .intro-hint {
+    font-size: 11px;
+    color: $gris-texto;
+    letter-spacing: 0.5px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      background: $dorado;
+      opacity: 0.6;
+    }
+  }
+
+
+// ─────────────────────────────────────────────
+//  GRID DE CARDS
+// ─────────────────────────────────────────────
+.cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 16px;
+}
+
+// ─────────────────────────────────────────────
+//  FLIP CARD — ESTRUCTURA 3D
+// ─────────────────────────────────────────────
+.flip-wrapper {
+  height: 230px;
+  perspective: 1000px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flip-wrapper.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-face {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+// ─────────────────────────────────────────────
+//  FRENTE DE LA CARD
+// ─────────────────────────────────────────────
+.flip-front {
+  background: $negro-card;
+  border: 1px solid $grafito2;
+
+  .face-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.88;
+  }
+
+  .front-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(7,7,10,0.95) 0%, rgba(7,7,10,0.4) 45%, rgba(7,7,10,0.1) 100%),
+      linear-gradient(to right, rgba(7,7,10,0.5) 0%, transparent 50%);
+  }
+
+  .front-index {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(200,169,110,0.5);
+    letter-spacing: 2px;
+    z-index: 2;
+  }
+
+  .front-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(6px);
+    color: $blanco-suave;
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 2;
+
+    &.badge-ev {
+      background: rgba(0,184,110,0.18);
+      border-color: rgba(0,184,110,0.35);
+      color: $verde-ev;
+    }
+
+    &.badge-hybrid {
+      background: rgba(100,160,255,0.15);
+      border-color: rgba(100,160,255,0.3);
+      color: #80b4ff;
+    }
+  }
+
+  .front-info {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    right: 16px;
+    z-index: 2;
+
+    .front-year {
+      font-size: 11px;
+      color: $dorado;
+      letter-spacing: 3px;
+      margin: 0 0 3px;
+      font-weight: 600;
+    }
+
+    .front-model {
+      font-size: 23px;
+      font-weight: 900;
+      color: $blanco;
+      margin: 0 0 2px;
+      letter-spacing: 0.3px;
+      line-height: 1.1;
+      font-family: 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .front-class {
+      font-size: 10px;
+      color: $gris-texto;
+      margin: 0 0 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .front-hint {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: $dorado;
+      letter-spacing: 1px;
+      opacity: 0.75;
+
+      ion-icon { font-size: 12px; }
+    }
+  }
+
+  .front-gold-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, $dorado, transparent);
+    z-index: 3;
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+// ─────────────────────────────────────────────
+//  REVERSO DE LA CARD
+// ─────────────────────────────────────────────
+.flip-back {
+  background: $negro-back;
+  border: 1px solid $gris-linea;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow-y: auto;
 
-  color: #8c8c8c;
+  // Fondo texturizado sutil
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 10%, rgba(200,169,110,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 90%, rgba(200,169,110,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
 
+  .back-header {
+    padding: 14px 16px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .back-wordmark {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: $dorado;
+      font-family: 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .back-model-name {
+      flex: 1;
+      font-size: 15px;
+      font-weight: 800;
+      color: $blanco;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .back-year-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid $gris-linea;
+      color: $gris-texto;
+      letter-spacing: 1px;
+      flex-shrink: 0;
+    }
+  }
+
+  .back-gold-sep {
+    height: 1px;
+    margin: 0 16px;
+    background: linear-gradient(to right, transparent, $dorado, transparent);
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+
+  .back-specs {
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(50, 50, 69, 0.5);
+
+      &:last-child { border-bottom: none; }
+
+      .spec-key {
+        font-size: 10px;
+        color: $gris-texto;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 500;
+      }
+
+      .spec-val {
+        font-size: 11px;
+        font-weight: 700;
+        color: $blanco-suave;
+        text-align: right;
+        max-width: 55%;
+
+        &.accent { color: $dorado; }
+      }
+    }
+  }
+
+  .back-consumo {
+    display: flex;
+    padding: 8px 16px 6px;
+    flex-shrink: 0;
+
+    .bc-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+
+      &.bc-center {
+        border-left: 1px solid $gris-linea;
+        border-right: 1px solid $gris-linea;
+      }
+
+      .bc-val {
+        font-size: 20px;
+        font-weight: 900;
+        color: $blanco;
+        line-height: 1;
+
+        &.accent { color: $dorado; }
+      }
+
+      .bc-unit {
+        font-size: 8px;
+        color: $gris-texto;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+
+      .bc-label {
+        font-size: 8px;
+        color: $gris-texto;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 1px;
+      }
+    }
+  }
+
+  .back-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 6px 16px 10px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: $dorado;
+    opacity: 0.6;
+    text-transform: uppercase;
+    flex-shrink: 0;
+
+    ion-icon { font-size: 11px; }
+  }
+}
+
+// Intro mínimo (solo el hint)
+.catalogo-intro {
+  padding: 16px 22px 8px;
+}
+.intro-title, .intro-eyebrow { display: none; }
+.intro-hint {
+  font-size: 11px;
+  color: $gris-texto;
+  letter-spacing: 0.5px;
   margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: $dorado;
+    opacity: 0.6;
+  }
 }
