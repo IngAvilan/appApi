@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { HomePage } from './home.page';
+
+// Declaraciones para quitar el error visual en VS Code
+declare var describe: any;
+declare var beforeEach: any;
+declare var it: any;
+declare var expect: any;
 
 describe('HomePage', () => {
   let component: HomePage;

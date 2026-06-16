@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PorscheService, PorscheCarro } from '../services/api';
 
-export interface CarroConFlip extends PorscheCarro {
-  flipped: boolean;
-}
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -13,37 +9,32 @@ export interface CarroConFlip extends PorscheCarro {
 })
 export class HomePage implements OnInit {
 
-  carros: CarroConFlip[] = [];
+  carros: PorscheCarro[] = [];
   cargando = true;
+  modalAbierto = false;
+  carroSeleccionado: PorscheCarro | null = null;
 
   constructor(private porscheService: PorscheService) {}
 
   ngOnInit() {
     this.porscheService.getCarros().subscribe({
-      next: (data) => {
-        this.carros = data.map(c => ({ ...c, flipped: false }));
-        this.cargando = false;
-      },
+      next: (data) => { this.carros = data; this.cargando = false; },
       error: () => { this.cargando = false; }
     });
   }
 
-  toggleFlip(carro: CarroConFlip) {
-    carro.flipped = !carro.flipped;
+  abrirFichaTecnica(carro: PorscheCarro) {
+    this.carroSeleccionado = carro;
+    this.modalAbierto = true;
   }
 
-  getTransmision(t: string): string {
-    return this.porscheService.getTransmision(t);
+  cerrarModal() {
+    this.modalAbierto = false;
+    this.carroSeleccionado = null;
   }
 
-  getTraccion(d: string): string {
-    return this.porscheService.getTraccion(d);
-  }
-
-  getTraccionCorta(d: string): string {
-    const map: { [key: string]: string } = { awd: 'AWD', rwd: 'RWD', fwd: 'FWD' };
-    return map[d] ?? d.toUpperCase();
-  }
+  getTransmision(t: string): string { return this.porscheService.getTransmision(t); }
+  getTraccion(d: string): string    { return this.porscheService.getTraccion(d); }
 
   getFuelLabel(ft: string): string {
     if (ft === 'electricity') return '⚡ Eléctrico';
@@ -53,9 +44,9 @@ export class HomePage implements OnInit {
 
   onImgError(event: Event, modelo: string) {
     const img = event.target as HTMLImageElement;
-    if (img.dataset['fallback'] === '1') { img.style.display = 'none'; return; }
+    if (img.dataset['fallback'] === '1') return;
     img.dataset['fallback'] = '1';
-    img.src = `https://placehold.co/800x500/0a0a0a/c8a96e?text=PORSCHE+${modelo.toUpperCase()}`;
+    img.src = `https://placehold.co/800x500/0a0a0a/c8a96e?text=PORSCHE`;
   }
 
   getNombreModelo(modelo: string): string {

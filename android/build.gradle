@@ -1,0 +1,52 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.13.0'
+        classpath 'com.google.gms:google-services:4.4.4'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+apply from: "variables.gradle"
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    //  FIX: Kotlin stdlib duplicado
+    //  Desde Kotlin 1.8, kotlin-stdlib-jdk7 y kotlin-stdlib-jdk8 fueron
+    //  fusionados dentro de kotlin-stdlib. Tener ambos en el classpath
+    //  genera clases duplicadas. Esta configuración fuerza a todos los
+    //  subproyectos (app, capacitor-android, plugins, etc.) a usar solo
+    //  la versión unificada 1.8.22 y elimina las variantes jdk7/jdk8.
+    // ─────────────────────────────────────────────────────────────────────
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                if (details.requested.name in ['kotlin-stdlib-jdk7', 'kotlin-stdlib-jdk8']) {
+                    details.useTarget(
+                        group: 'org.jetbrains.kotlin',
+                        name: 'kotlin-stdlib',
+                        version: '1.8.22'
+                    )
+                    details.because('kotlin-stdlib-jdk7 y jdk8 están incluidos en kotlin-stdlib desde 1.8')
+                }
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

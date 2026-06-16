@@ -1,90 +1,56 @@
-// ─────────────────────────────────────────────
-//  TOKENS — Paleta de lujo automotriz
-// ─────────────────────────────────────────────
-$negro-fondo:   #07070a;
-$negro-card:    #0e0e12;
-$negro-back:    #11111a;
-$grafito:       #1c1c26;
-$grafito2:      #2a2a38;
-$gris-linea:    #323245;
-$gris-texto:    #7a7a9a;
-$blanco:        #f0efeb;
-$blanco-suave:  #c8c8d8;
-$dorado:        #c8a96e;
-$dorado-claro:  #e8c98e;
-$dorado-opaco:  rgba(200,169,110,0.15);
-$rojo:          #c0001a;
-$verde-ev:      #00b86e;
+$negro:       #07070a;
+$negro-card:  #0e0e12;
+$negro-back:  #11111a;
+$grafito2:    #2a2a38;
+$gris-linea:  #323245;
+$gris-texto:  #7a7a9a;
+$blanco:      #f0efeb;
+$blanco2:     #c8c8d8;
+$dorado:      #c8a96e;
+$verde-ev:    #00b86e;
 
-// ─────────────────────────────────────────────
-//  RESET BASE
-// ─────────────────────────────────────────────
+// ── CONTENT ───────────────────────────────────────────────────
 ion-content.porsche-content {
-  --background: #{$negro-fondo};
+  --background: #{$negro};
   --color: #{$blanco};
 }
 
-// ─────────────────────────────────────────────
-//  TOOLBAR
-// ─────────────────────────────────────────────
+// ── TOOLBAR ───────────────────────────────────────────────────
 .porsche-toolbar {
-  --background: #{$negro-fondo};
+  --background: #{$negro};
   --border-color: #{$gris-linea};
-  --min-height: 64px;
-  padding: 0 20px;
+  --min-height: 56px;
 
   .toolbar-inner {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    justify-content: center;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: 10px;
   }
 
   .toolbar-wordmark {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 900;
-    letter-spacing: 5px;
+    letter-spacing: 8px;
     color: $blanco;
     font-family: 'Arial Narrow', Arial, sans-serif;
-    line-height: 1;
-  }
-
-  .toolbar-rule {
-    width: 1px;
-    height: 20px;
-    background: $dorado;
-    opacity: 0.6;
-  }
-
-  .toolbar-sub {
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: $dorado;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  .toolbar-count {
-    font-size: 11px;
-    color: $gris-texto;
-    letter-spacing: 1px;
+    margin-top: 10px;
   }
 }
 
-// ─────────────────────────────────────────────
-//  LOADING
-// ─────────────────────────────────────────────
+// ── LOADING ───────────────────────────────────────────────────
 .loading-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  height: 80vh;
   gap: 20px;
 
   .loader-crest {
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -95,15 +61,13 @@ ion-content.porsche-content {
       border-radius: 50%;
       border: 1.5px solid $dorado;
       opacity: 0.5;
-      animation: spinRing 2.4s linear infinite;
+      animation: spin 2s linear infinite;
     }
-
     .crest-inner {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 900;
-      letter-spacing: 0;
       color: $dorado;
-      font-family: 'Georgia', serif;
+      font-family: Georgia, serif;
       font-style: italic;
     }
   }
@@ -125,423 +89,341 @@ ion-content.porsche-content {
       border-radius: 50%;
       background: $dorado;
       opacity: 0.3;
-      animation: dotPulse 1.2s ease-in-out infinite;
-
+      animation: pulse 1.2s ease-in-out infinite;
       &:nth-child(2) { animation-delay: 0.2s; }
       &:nth-child(3) { animation-delay: 0.4s; }
     }
   }
 }
 
-@keyframes spinRing {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes dotPulse {
+@keyframes spin  { to { transform: rotate(360deg); } }
+@keyframes pulse {
   0%, 100% { opacity: 0.2; transform: scale(1); }
   50%       { opacity: 1;   transform: scale(1.4); }
 }
 
-// ─────────────────────────────────────────────
-//  CATÁLOGO WRAPPER
-// ─────────────────────────────────────────────
-.catalogo-wrapper {
-  padding: 0 0 48px;
-}
-
-.catalogo-intro {
-  padding: 28px 22px 20px;
-
-  // removed
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: $dorado;
-    text-transform: uppercase;
-    margin: 0 0 6px;
-    font-weight: 600;
-  }
-
-  .intro-title {
-    font-size: 26px;
-    font-weight: 900;
-    color: $blanco;
-    margin: 0 0 8px;
-    line-height: 1.15;
-    font-family: 'Arial Narrow', Arial, sans-serif;
-    letter-spacing: 0.5px;
-
-    em {
-      font-style: italic;
-      color: $dorado;
-      font-weight: 300;
-    }
-  }
-
-  .intro-hint {
-    font-size: 11px;
-    color: $gris-texto;
-    letter-spacing: 0.5px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 18px;
-      height: 1px;
-      background: $dorado;
-      opacity: 0.6;
-    }
-  }
-
-
-// ─────────────────────────────────────────────
-//  GRID DE CARDS
-// ─────────────────────────────────────────────
-.cards-grid {
+// ── CARRUSEL NATIVO ───────────────────────────────────────────
+.carrusel-container {
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 56px - env(safe-area-inset-top, 0px));
+  justify-content: center;
+  padding: 0;
+}
+
+.intro-hint {
+  font-size: 11px;
+  color: $gris-texto;
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px;
+}
+
+// ── EL SCROLL HORIZONTAL NATIVO ───────────────────────────────
+// scroll-snap hace que cada card quede centrada al soltar
+// -webkit-overflow-scrolling: touch activa inercia en iOS/Android
+.scroll-track {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   gap: 16px;
-  padding: 0 16px;
+  padding: 0 10vw;         // margen para que se vea el borde de la siguiente card
+  scrollbar-width: none;   // oculta scrollbar en Firefox
+  &::-webkit-scrollbar { display: none; } // oculta scrollbar en Chrome/Safari/Android
 }
 
-// ─────────────────────────────────────────────
-//  FLIP CARD — ESTRUCTURA 3D
-// ─────────────────────────────────────────────
-.flip-wrapper {
-  height: 230px;
-  perspective: 1000px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.flip-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.flip-wrapper.is-flipped .flip-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-face {
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
+// ── CARD ─────────────────────────────────────────────────────
+.car-card {
+  scroll-snap-align: center;
+  flex-shrink: 0;
+  width: 80vw;
+  height: 380px;
+  border-radius: 20px;
   overflow: hidden;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-// ─────────────────────────────────────────────
-//  FRENTE DE LA CARD
-// ─────────────────────────────────────────────
-.flip-front {
   background: $negro-card;
   border: 1px solid $grafito2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 
-  .face-img {
+  .card-img {
     position: absolute;
     inset: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.88;
+    height: 60%;
+    object-fit: contain;
+    background: #050507;
+    padding: 10px;
   }
 
-  .front-gradient {
+  .card-gradient {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(to top, rgba(7,7,10,0.95) 0%, rgba(7,7,10,0.4) 45%, rgba(7,7,10,0.1) 100%),
-      linear-gradient(to right, rgba(7,7,10,0.5) 0%, transparent 50%);
+    background: linear-gradient(to top, #{$negro-card} 30%, transparent 65%);
+    pointer-events: none;
   }
 
-  .front-index {
+  .card-index {
     position: absolute;
     top: 14px;
     right: 14px;
     font-size: 11px;
     font-weight: 700;
     color: rgba(200,169,110,0.5);
-    letter-spacing: 2px;
-    z-index: 2;
+    pointer-events: none;
   }
 
-  .front-badge {
+  .card-badge {
     position: absolute;
     top: 14px;
     left: 14px;
     font-size: 9px;
     font-weight: 700;
-    letter-spacing: 1px;
     padding: 3px 9px;
     border-radius: 20px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(6px);
-    color: $blanco-suave;
+    background: rgba(255,255,255,0.08);
+    color: $blanco2;
     border: 1px solid rgba(255,255,255,0.1);
-    z-index: 2;
+    pointer-events: none;
 
     &.badge-ev {
-      background: rgba(0,184,110,0.18);
-      border-color: rgba(0,184,110,0.35);
+      background: rgba(0,184,110,0.15);
+      border-color: rgba(0,184,110,0.3);
       color: $verde-ev;
     }
-
     &.badge-hybrid {
-      background: rgba(100,160,255,0.15);
-      border-color: rgba(100,160,255,0.3);
+      background: rgba(100,160,255,0.12);
+      border-color: rgba(100,160,255,0.25);
       color: #80b4ff;
     }
   }
 
-  .front-info {
+  .card-info {
     position: absolute;
-    bottom: 14px;
-    left: 16px;
-    right: 16px;
-    z-index: 2;
+    bottom: 16px;
+    left: 18px;
+    right: 18px;
+    pointer-events: none;
 
-    .front-year {
-      font-size: 11px;
-      color: $dorado;
-      letter-spacing: 3px;
-      margin: 0 0 3px;
-      font-weight: 600;
+    .info-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 3px;
+
+      .info-year  { font-size: 11px; color: $dorado; font-weight: 600; }
+      .info-class { font-size: 9px; color: $gris-texto; text-transform: uppercase; letter-spacing: 1px; }
     }
 
-    .front-model {
-      font-size: 23px;
+    .info-model {
+      font-size: 22px;
       font-weight: 900;
       color: $blanco;
-      margin: 0 0 2px;
-      letter-spacing: 0.3px;
-      line-height: 1.1;
-      font-family: 'Arial Narrow', Arial, sans-serif;
-    }
-
-    .front-class {
-      font-size: 10px;
-      color: $gris-texto;
       margin: 0 0 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      line-height: 1.1;
     }
 
-    .front-hint {
+    .info-action {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       font-size: 10px;
       color: $dorado;
+      font-weight: 600;
+      text-transform: uppercase;
       letter-spacing: 1px;
-      opacity: 0.75;
 
       ion-icon { font-size: 12px; }
     }
   }
 
-  .front-gold-line {
+  .card-gold-line {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(to right, transparent, $dorado, transparent);
-    z-index: 3;
-  }
-}
-
-// ─────────────────────────────────────────────
-//  REVERSO DE LA CARD
-// ─────────────────────────────────────────────
-.flip-back {
-  background: $negro-back;
-  border: 1px solid $gris-linea;
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  overflow-y: auto;
-
-  // Fondo texturizado sutil
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 80% 10%, rgba(200,169,110,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 90%, rgba(200,169,110,0.04) 0%, transparent 50%);
     pointer-events: none;
   }
+}
 
-  .back-header {
-    padding: 14px 16px 10px;
+.scroll-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 9px;
+  color: $gris-texto;
+  letter-spacing: 4px;
+  opacity: 0.4;
+  margin-top: 14px;
+
+  ion-icon { font-size: 11px; }
+}
+
+// ── MODAL ─────────────────────────────────────────────────────
+.porsche-modal {
+  --background: #{$negro-back};
+  --height: 82%;
+  --border-radius: 24px 24px 0 0;
+  --box-shadow: 0 -4px 24px rgba(0,0,0,0.6);
+}
+
+.modal-toolbar {
+  --background: #{$negro-card};
+  --border-color: #{$gris-linea};
+  --color: #{$blanco};
+  --min-height: 56px;
+  font-weight: 800;
+
+  ion-button { --color: #{$gris-texto}; font-size: 20px; }
+}
+
+ion-content.modal-content {
+  --background: #{$negro-back};
+  --color: #{$blanco};
+  --overflow: auto;
+}
+
+.modal-body { padding: 24px 20px 48px; }
+
+.modal-vehicle-header {
+  text-align: center;
+  margin-bottom: 16px;
+
+  .modal-wordmark {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: $dorado;
+    margin-bottom: 6px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+  }
+
+  .modal-model-title {
+    font-size: 28px;
+    font-weight: 900;
+    color: $blanco;
+    margin: 0 0 4px;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+  }
+
+  .modal-variant {
+    font-size: 14px;
+    color: $blanco2;
+    margin: 0 0 10px;
+  }
+
+  .modal-badges-row {
     display: flex;
-    align-items: center;
+    justify-content: center;
     gap: 8px;
 
-    .back-wordmark {
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      color: $dorado;
-      font-family: 'Arial Narrow', Arial, sans-serif;
-    }
-
-    .back-model-name {
-      flex: 1;
-      font-size: 15px;
-      font-weight: 800;
-      color: $blanco;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .back-year-badge {
+    .m-badge {
       font-size: 10px;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: $negro-card;
       border: 1px solid $gris-linea;
-      color: $gris-texto;
-      letter-spacing: 1px;
-      flex-shrink: 0;
+      color: $blanco2;
+
+      &.gold { color: $dorado; border-color: rgba(200,169,110,0.4); }
     }
   }
+}
 
-  .back-gold-sep {
-    height: 1px;
-    margin: 0 16px;
-    background: linear-gradient(to right, transparent, $dorado, transparent);
-    opacity: 0.4;
-    flex-shrink: 0;
+.modal-sep {
+  height: 1px;
+  background: linear-gradient(to right, transparent, $dorado, transparent);
+  opacity: 0.3;
+  margin: 18px 0;
+}
+
+.modal-specs-table {
+  background: $negro-card;
+  border: 1px solid $gris-linea;
+  border-radius: 14px;
+  padding: 8px 16px;
+
+  .modal-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(50,50,69,0.4);
+
+    &:last-child { border-bottom: none; }
+
+    .m-key {
+      font-size: 11px;
+      color: $gris-texto;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .m-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: $blanco2;
+      text-align: right;
+      max-width: 55%;
+      &.accent { color: $dorado; }
+    }
   }
+}
 
-  .back-specs {
-    padding: 8px 16px;
+.modal-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $dorado;
+  margin: 16px 0 12px;
+}
+
+.modal-consumo-grid {
+  display: flex;
+  gap: 10px;
+
+  .mc-box {
+    flex: 1;
+    background: $negro-card;
+    border: 1px solid $gris-linea;
+    border-radius: 12px;
+    padding: 12px 8px;
     display: flex;
     flex-direction: column;
-    gap: 0;
-    flex: 1;
-
-    .spec-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(50, 50, 69, 0.5);
-
-      &:last-child { border-bottom: none; }
-
-      .spec-key {
-        font-size: 10px;
-        color: $gris-texto;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 500;
-      }
-
-      .spec-val {
-        font-size: 11px;
-        font-weight: 700;
-        color: $blanco-suave;
-        text-align: right;
-        max-width: 55%;
-
-        &.accent { color: $dorado; }
-      }
-    }
-  }
-
-  .back-consumo {
-    display: flex;
-    padding: 8px 16px 6px;
-    flex-shrink: 0;
-
-    .bc-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1px;
-
-      &.bc-center {
-        border-left: 1px solid $gris-linea;
-        border-right: 1px solid $gris-linea;
-      }
-
-      .bc-val {
-        font-size: 20px;
-        font-weight: 900;
-        color: $blanco;
-        line-height: 1;
-
-        &.accent { color: $dorado; }
-      }
-
-      .bc-unit {
-        font-size: 8px;
-        color: $gris-texto;
-        font-weight: 600;
-        letter-spacing: 1px;
-      }
-
-      .bc-label {
-        font-size: 8px;
-        color: $gris-texto;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-top: 1px;
-      }
-    }
-  }
-
-  .back-footer {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 5px;
-    padding: 6px 16px 10px;
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: $dorado;
-    opacity: 0.6;
-    text-transform: uppercase;
-    flex-shrink: 0;
+    gap: 4px;
 
-    ion-icon { font-size: 11px; }
-  }
-}
+    &.highlighted {
+      border-color: rgba(200,169,110,0.5);
+      background: rgba(200,169,110,0.03);
+    }
 
-// Intro mínimo (solo el hint)
-.catalogo-intro {
-  padding: 16px 22px 8px;
-}
-.intro-title, .intro-eyebrow { display: none; }
-.intro-hint {
-  font-size: 11px;
-  color: $gris-texto;
-  letter-spacing: 0.5px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 18px;
-    height: 1px;
-    background: $dorado;
-    opacity: 0.6;
+    .mc-num {
+      font-size: 22px;
+      font-weight: 900;
+      color: $blanco;
+      line-height: 1;
+    }
+
+    .gold-text { color: $dorado; }
+
+    .mc-lbl {
+      font-size: 8px;
+      color: $gris-texto;
+      text-transform: uppercase;
+      text-align: center;
+    }
   }
 }
